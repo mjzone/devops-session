@@ -10,9 +10,13 @@ module.exports.generate = async (event) => {
   let output = 0;
   try {
     const number = parseInt(event.pathParameters.number);
-    if (number) {
-      output = fib(number);
+    if (isNaN(number)) {
+      throw new Error("Not a number")
     }
+    if (number > 40) {
+      throw new Error("Number must be less than or equal to 40");
+    }
+    output = fib(number);
     return {
       statusCode: 200,
       body: JSON.stringify({
@@ -20,9 +24,10 @@ module.exports.generate = async (event) => {
       })
     }
   } catch (error) {
+    console.log(error);
     return {
-      statusCode: 500,
-      body: JSON.stringify(error)
+      statusCode: 400,
+      body: JSON.stringify({ error: error.message })
     }
   }
 };
