@@ -1,15 +1,16 @@
 service: fib-generator
-frameworkVersion: '2'
+frameworkVersion: "2"
 
 provider:
   name: aws
   runtime: nodejs12.x
+  stage: dev
   lambdaHashingVersion: 20201221
 
 functions:
   generate:
     handler: handler.generate
     events:
-      - http: 
+      - http:
           path: generate/{number}
           method: get

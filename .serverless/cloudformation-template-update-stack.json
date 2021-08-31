@@ -161,7 +161,7 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/fib-generator/dev/1630448567157-2021-08-31T22:22:47.157Z/fib-generator.zip"
+          "S3Key": "serverless/fib-generator/dev/1630452949667-2021-08-31T23:35:49.667Z/fib-generator.zip"
         },
         "Handler": "handler.generate",
         "Runtime": "nodejs12.x",
@@ -179,14 +179,14 @@
         "GenerateLogGroup"
       ]
     },
-    "GenerateLambdaVersionggnvipUn16oUpP7zQWM7rliIFx4PA00BHf8IJsGKSo": {
+    "GenerateLambdaVersionO6wYBceOxEGxMWsRsPKI51oSp8JQYYvbdtKbn8v4": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "GenerateLambdaFunction"
         },
-        "CodeSha256": "ZHt40an91aRn8AG87O4EznbBr69yzV6lOTDbmasQ1Ts="
+        "CodeSha256": "4N4qwOzlv6WPQgYEgUtMo0Vcm69LPyT4dvr9L/LNP0A="
       }
     },
     "ApiGatewayRestApi": {
@@ -274,7 +274,7 @@
         "GenerateLambdaPermissionApiGateway"
       ]
     },
-    "ApiGatewayDeployment1630448566130": {
+    "ApiGatewayDeployment1630452948435": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -336,7 +336,7 @@
     "GenerateLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "GenerateLambdaVersionggnvipUn16oUpP7zQWM7rliIFx4PA00BHf8IJsGKSo"
+        "Ref": "GenerateLambdaVersionO6wYBceOxEGxMWsRsPKI51oSp8JQYYvbdtKbn8v4"
       },
       "Export": {
         "Name": "sls-fib-generator-dev-GenerateLambdaFunctionQualifiedArn"
