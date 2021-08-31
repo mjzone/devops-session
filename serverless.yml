@@ -11,5 +11,5 @@ functions:
     handler: handler.generate
     events:
       - http: 
-          path: generate
+          path: generate/{number}
           method: get
