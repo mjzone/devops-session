@@ -1,0 +1,3 @@
+- Create the metric filter
+- Setup threshold
+- Trigger an SNS topic
