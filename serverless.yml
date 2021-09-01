@@ -19,7 +19,7 @@ functions:
   dispatchLogs:
     handler: dispatch.handler
     environment: 
-      logzio_token: wdSkRRNnIqqoncrvqfnGtwCKAUFEGPJd
+      logzio_token: <add_logzio_token>
     iamRoleStatements:
       - Effect: "Allow"        
         Action:
