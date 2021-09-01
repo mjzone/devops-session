@@ -1,3 +1,5 @@
-- Create the metric filter
-- Setup threshold
+- Create the metric filter 
+    - E.g. {$.type = "CRITICAL" && $.context.stage = "dev"}
+    - Set Metric value = 1
+- Create an alarm from the metric filter
 - Trigger an SNS topic

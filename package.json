@@ -1,0 +1,26 @@
+{
+  "name": "devops-session",
+  "version": "1.0.0",
+  "description": "- Create the metric filter      - E.g. {$.type = \"CRITICAL\" && $.context.stage = \"dev\"}     - Set Metric value = 1 - Create an alarm from the metric filter - Trigger an SNS topic",
+  "main": "dispatch.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mjzone/devops-session.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mjzone/devops-session/issues"
+  },
+  "homepage": "https://github.com/mjzone/devops-session#readme",
+  "dependencies": {
+    "zlib": "^1.0.5"
+  },
+  "devDependencies": {
+    "serverless-iam-roles-per-function": "^3.2.0"
+  }
+}

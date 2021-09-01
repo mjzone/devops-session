@@ -14,3 +14,14 @@ functions:
       - http:
           path: generate/{number}
           method: get
+
+  dispatchLogs:
+    handler: dispatch.handler
+    iamRoleStatements:
+      - Effect: "Allow"        
+        Action:
+          - "ses:*"        
+        Resource: "*"
+
+plugins:
+  - serverless-iam-roles-per-function

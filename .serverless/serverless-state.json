@@ -90,6 +90,12 @@
               "LogGroupName": "/aws/lambda/fib-generator-dev-generate"
             }
           },
+          "DispatchLogsLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/fib-generator-dev-dispatchLogs"
+            }
+          },
           "IamRoleLambdaExecution": {
             "Type": "AWS::IAM::Role",
             "Properties": {
@@ -174,7 +180,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/fib-generator/dev/1630452949667-2021-08-31T23:35:49.667Z/fib-generator.zip"
+                "S3Key": "serverless/fib-generator/dev/1630469642552-2021-09-01T04:14:02.552Z/fib-generator.zip"
               },
               "Handler": "handler.generate",
               "Runtime": "nodejs12.x",
@@ -192,14 +198,50 @@
               "GenerateLogGroup"
             ]
           },
-          "GenerateLambdaVersionO6wYBceOxEGxMWsRsPKI51oSp8JQYYvbdtKbn8v4": {
+          "DispatchLogsLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/fib-generator/dev/1630469642552-2021-09-01T04:14:02.552Z/fib-generator.zip"
+              },
+              "Handler": "dispatch.handler",
+              "Runtime": "nodejs12.x",
+              "FunctionName": "fib-generator-dev-dispatchLogs",
+              "MemorySize": 1024,
+              "Timeout": 6,
+              "Role": {
+                "Fn::GetAtt": [
+                  "DispatchLogsIamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "DispatchLogsIamRoleLambdaExecution",
+              "DispatchLogsLogGroup"
+            ]
+          },
+          "GenerateLambdaVersionvE9rfwtJrgddvD2tEIqrEukjoqcGQLqiryDNgVtJe8": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GenerateLambdaFunction"
               },
-              "CodeSha256": "4N4qwOzlv6WPQgYEgUtMo0Vcm69LPyT4dvr9L/LNP0A="
+              "CodeSha256": "Cpw1jwwkk9efdngCv69LrCKVKipklHjs2d+iBWy8mbw="
+            }
+          },
+          "DispatchLogsLambdaVersionMuJheLLpE77Nd3FgBKfSCbgXjRs0CvJsQXyplRTTMM": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "DispatchLogsLambdaFunction"
+              },
+              "CodeSha256": "Cpw1jwwkk9efdngCv69LrCKVKipklHjs2d+iBWy8mbw="
             }
           },
           "ApiGatewayRestApi": {
@@ -287,7 +329,7 @@
               "GenerateLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1630452948435": {
+          "ApiGatewayDeployment1630469640476": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -335,6 +377,82 @@
                 ]
               }
             }
+          },
+          "DispatchLogsIamRoleLambdaExecution": {
+            "Type": "AWS::IAM::Role",
+            "Properties": {
+              "AssumeRolePolicyDocument": {
+                "Version": "2012-10-17",
+                "Statement": [
+                  {
+                    "Effect": "Allow",
+                    "Principal": {
+                      "Service": [
+                        "lambda.amazonaws.com"
+                      ]
+                    },
+                    "Action": [
+                      "sts:AssumeRole"
+                    ]
+                  }
+                ]
+              },
+              "Policies": [
+                {
+                  "PolicyName": {
+                    "Fn::Join": [
+                      "-",
+                      [
+                        "fib-generator",
+                        "dev",
+                        "lambda"
+                      ]
+                    ]
+                  },
+                  "PolicyDocument": {
+                    "Version": "2012-10-17",
+                    "Statement": [
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "logs:CreateLogStream",
+                          "logs:CreateLogGroup",
+                          "logs:PutLogEvents"
+                        ],
+                        "Resource": [
+                          {
+                            "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/fib-generator-dev-dispatchLogs:*:*"
+                          }
+                        ]
+                      },
+                      {
+                        "Effect": "Allow",
+                        "Action": [
+                          "ses:*"
+                        ],
+                        "Resource": "*"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "Path": "/",
+              "RoleName": {
+                "Fn::Join": [
+                  "-",
+                  [
+                    "fib-generator",
+                    "dev",
+                    "dispatchLogs",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    "lambdaRole"
+                  ]
+                ]
+              },
+              "ManagedPolicyArns": []
+            }
           }
         },
         "Outputs": {
@@ -349,10 +467,19 @@
           "GenerateLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GenerateLambdaVersionO6wYBceOxEGxMWsRsPKI51oSp8JQYYvbdtKbn8v4"
+              "Ref": "GenerateLambdaVersionvE9rfwtJrgddvD2tEIqrEukjoqcGQLqiryDNgVtJe8"
             },
             "Export": {
               "Name": "sls-fib-generator-dev-GenerateLambdaFunctionQualifiedArn"
+            }
+          },
+          "DispatchLogsLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "DispatchLogsLambdaVersionMuJheLLpE77Nd3FgBKfSCbgXjRs0CvJsQXyplRTTMM"
+            },
+            "Export": {
+              "Name": "sls-fib-generator-dev-DispatchLogsLambdaFunctionQualifiedArn"
             }
           },
           "ServiceEndpoint": {
@@ -467,6 +594,9 @@
       },
       "vpc": {}
     },
+    "plugins": [
+      "serverless-iam-roles-per-function"
+    ],
     "pluginsData": {},
     "functions": {
       "generate": {
@@ -486,7 +616,23 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "GenerateLambdaVersionO6wYBceOxEGxMWsRsPKI51oSp8JQYYvbdtKbn8v4"
+        "versionLogicalId": "GenerateLambdaVersionvE9rfwtJrgddvD2tEIqrEukjoqcGQLqiryDNgVtJe8"
+      },
+      "dispatchLogs": {
+        "handler": "dispatch.handler",
+        "iamRoleStatements": [
+          {
+            "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"DispatchLogsIamRoleLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][1]"
+          }
+        ],
+        "events": [],
+        "name": "fib-generator-dev-dispatchLogs",
+        "package": {},
+        "memory": 1024,
+        "timeout": 6,
+        "runtime": "nodejs12.x",
+        "vpc": {},
+        "versionLogicalId": "DispatchLogsLambdaVersionMuJheLLpE77Nd3FgBKfSCbgXjRs0CvJsQXyplRTTMM"
       }
     },
     "configValidationMode": "warn",
@@ -501,6 +647,9 @@
       },
       "functions": {
         "$ref": "$[\"service\"][\"functions\"]"
+      },
+      "plugins": {
+        "$ref": "$[\"service\"][\"plugins\"]"
       }
     },
     "layers": {},
@@ -508,7 +657,7 @@
     "artifact": "/Users/manojf/Desktop/devops-session/.serverless/fib-generator.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/fib-generator/dev/1630452949667-2021-08-31T23:35:49.667Z",
+    "artifactDirectoryName": "serverless/fib-generator/dev/1630469642552-2021-09-01T04:14:02.552Z",
     "artifact": "fib-generator.zip"
   }
 }
