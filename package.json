@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/mjzone/devops-session#readme",
   "dependencies": {
+    "logzio-nodejs": "^2.0.3",
     "zlib": "^1.0.5"
   },
   "devDependencies": {

@@ -180,7 +180,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/fib-generator/dev/1630469642552-2021-09-01T04:14:02.552Z/fib-generator.zip"
+                "S3Key": "serverless/fib-generator/dev/1630476464439-2021-09-01T06:07:44.439Z/fib-generator.zip"
               },
               "Handler": "handler.generate",
               "Runtime": "nodejs12.x",
@@ -205,13 +205,18 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/fib-generator/dev/1630469642552-2021-09-01T04:14:02.552Z/fib-generator.zip"
+                "S3Key": "serverless/fib-generator/dev/1630476464439-2021-09-01T06:07:44.439Z/fib-generator.zip"
               },
               "Handler": "dispatch.handler",
               "Runtime": "nodejs12.x",
               "FunctionName": "fib-generator-dev-dispatchLogs",
               "MemorySize": 1024,
               "Timeout": 6,
+              "Environment": {
+                "Variables": {
+                  "logzio_token": "wdSkRRNnIqqoncrvqfnGtwCKAUFEGPJd"
+                }
+              },
               "Role": {
                 "Fn::GetAtt": [
                   "DispatchLogsIamRoleLambdaExecution",
@@ -224,24 +229,24 @@
               "DispatchLogsLogGroup"
             ]
           },
-          "GenerateLambdaVersionvE9rfwtJrgddvD2tEIqrEukjoqcGQLqiryDNgVtJe8": {
+          "GenerateLambdaVersionhPwo67pkEdysrprVlXZcfq2zmCJwTSRvcErvTPwFFA": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GenerateLambdaFunction"
               },
-              "CodeSha256": "Cpw1jwwkk9efdngCv69LrCKVKipklHjs2d+iBWy8mbw="
+              "CodeSha256": "gmh0JRwBMaYOgR9KeLl2s9p0xL/xvp2YBukK2t+z/HI="
             }
           },
-          "DispatchLogsLambdaVersionMuJheLLpE77Nd3FgBKfSCbgXjRs0CvJsQXyplRTTMM": {
+          "DispatchLogsLambdaVersionZNwt4tRuCNZCPcjN0zXnWysvcFrCC0msTwcwU0gNldM": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "DispatchLogsLambdaFunction"
               },
-              "CodeSha256": "Cpw1jwwkk9efdngCv69LrCKVKipklHjs2d+iBWy8mbw="
+              "CodeSha256": "gmh0JRwBMaYOgR9KeLl2s9p0xL/xvp2YBukK2t+z/HI="
             }
           },
           "ApiGatewayRestApi": {
@@ -329,7 +334,7 @@
               "GenerateLambdaPermissionApiGateway"
             ]
           },
-          "ApiGatewayDeployment1630469640476": {
+          "ApiGatewayDeployment1630476461205": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -467,7 +472,7 @@
           "GenerateLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GenerateLambdaVersionvE9rfwtJrgddvD2tEIqrEukjoqcGQLqiryDNgVtJe8"
+              "Ref": "GenerateLambdaVersionhPwo67pkEdysrprVlXZcfq2zmCJwTSRvcErvTPwFFA"
             },
             "Export": {
               "Name": "sls-fib-generator-dev-GenerateLambdaFunctionQualifiedArn"
@@ -476,7 +481,7 @@
           "DispatchLogsLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "DispatchLogsLambdaVersionMuJheLLpE77Nd3FgBKfSCbgXjRs0CvJsQXyplRTTMM"
+              "Ref": "DispatchLogsLambdaVersionZNwt4tRuCNZCPcjN0zXnWysvcFrCC0msTwcwU0gNldM"
             },
             "Export": {
               "Name": "sls-fib-generator-dev-DispatchLogsLambdaFunctionQualifiedArn"
@@ -616,10 +621,13 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "GenerateLambdaVersionvE9rfwtJrgddvD2tEIqrEukjoqcGQLqiryDNgVtJe8"
+        "versionLogicalId": "GenerateLambdaVersionhPwo67pkEdysrprVlXZcfq2zmCJwTSRvcErvTPwFFA"
       },
       "dispatchLogs": {
         "handler": "dispatch.handler",
+        "environment": {
+          "logzio_token": "wdSkRRNnIqqoncrvqfnGtwCKAUFEGPJd"
+        },
         "iamRoleStatements": [
           {
             "$ref": "$[\"service\"][\"provider\"][\"compiledCloudFormationTemplate\"][\"Resources\"][\"DispatchLogsIamRoleLambdaExecution\"][\"Properties\"][\"Policies\"][0][\"PolicyDocument\"][\"Statement\"][1]"
@@ -632,7 +640,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "DispatchLogsLambdaVersionMuJheLLpE77Nd3FgBKfSCbgXjRs0CvJsQXyplRTTMM"
+        "versionLogicalId": "DispatchLogsLambdaVersionZNwt4tRuCNZCPcjN0zXnWysvcFrCC0msTwcwU0gNldM"
       }
     },
     "configValidationMode": "warn",
@@ -657,7 +665,7 @@
     "artifact": "/Users/manojf/Desktop/devops-session/.serverless/fib-generator.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/fib-generator/dev/1630469642552-2021-09-01T04:14:02.552Z",
+    "artifactDirectoryName": "serverless/fib-generator/dev/1630476464439-2021-09-01T06:07:44.439Z",
     "artifact": "fib-generator.zip"
   }
 }

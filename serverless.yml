@@ -17,6 +17,8 @@ functions:
 
   dispatchLogs:
     handler: dispatch.handler
+    environment: 
+      logzio_token: wdSkRRNnIqqoncrvqfnGtwCKAUFEGPJd
     iamRoleStatements:
       - Effect: "Allow"        
         Action:
