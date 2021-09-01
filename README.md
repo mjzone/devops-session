@@ -1,5 +1,4 @@
-- Create the metric filter 
+- Create the subscription filter 
     - E.g. {$.type = "CRITICAL" && $.context.stage = "dev"}
-    - Set Metric value = 1
-- Create an alarm from the metric filter
-- Trigger an SNS topic
+- Create lambda function
+- Send email with SES
