@@ -10,6 +10,7 @@ provider:
 functions:
   generate:
     handler: handler.generate
+    reservedConcurrency: 1
     events:
       - http:
           path: generate/{number}
